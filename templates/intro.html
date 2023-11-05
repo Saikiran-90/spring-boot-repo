@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  background: hsl(187 40% 98%);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+@media (min-width: 50em) {
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+.cta {
+  --shadowColor: 187 60% 40%;
+  display: flex;
+  flex-wrap: wrap;
+  background: hsl(187 70% 85%);
+  max-width: 22rem; 
+  width: 100%;  
+  box-shadow: 0.65rem 0.65rem 0 hsl(var(--shadowColor) / 1);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  border: 0.5rem solid; 
+}
+
+.cta img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  flex: 1 1 300px;
+  outline: 0.5rem solid;
+}
+
+.cta__text-column {
+  padding: min(2rem, 5vw) min(2rem, 5vw) min(2.5rem, 5vw);
+  flex: 1 0 50%;
+}
+
+.cta__text-column > * + * {
+  margin: min(1.5rem, 2.5vw) 0 0 0;
+}
+
+.cta a {
+  display: inline-block;
+  color: black;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background: hsl(187 75% 64%);
+  border-radius: 0.6rem;
+  font-weight: 700;
+  border: 0.35rem solid;
+}
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        grid-row: 2px;
+        grid-column: 2px;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+
+      }
+
+    .form-container {
+      border: 2px solid #ccc;
+      padding: 20px;
+      width: 400px;
+      margin: 0 auto;
+      background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+  <article class="cta">
+  <img src='https://thumbs.dreamstime.com/z/paper-words-inventory-management-charts-92977969.jpg' alt='Bluetit'>
+  <div class="cta__text-column">
+    <h2>Inventory Management</h2>
+    <!-- <p></p> -->
+    <a href="/inventory">Enter</a>
+  </div>
+</article>
+
+<article class="cta">
+  <img src='https://d6xcmfyh68wv8.cloudfront.net/learn-content/uploads/2020/12/Order-tracking-.png' alt='Small blue-grey yellow-breasted bird'>
+  <div class="cta__text-column">
+    <h2>Tracking Management</h2>
+
+    <a href="/track">Enter</a>
+  </div>
+</article>
+
+<article class="cta">
+    <img src='https://d6xcmfyh68wv8.cloudfront.net/learn-content/uploads/2020/12/Order-tracking-.png' alt='Small blue-grey yellow-breasted bird'>
+    <div class="cta__text-column">
+      <h2>Product Management</h2>
+  
+      <a href="/productdetails">Enter</a>
+    </div>
+  </article>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login and Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+    crossorigin="anonymous"></script>
+    <style>
+      form {
+          width: 400px;
+        margin: 0 auto;
+        margin-top: 90px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        color: #333333;
+      }
+      input {
+        width: 100%;
+        height: 50px;
+        border: 1px solid #E5E5E5;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding: 0 15px;
+        margin-bottom: 20px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 20px;
+        line-height: 24px;
+        color: #333333;
+      }
+      input[type="submit"] {
+        background: black;
+        border-radius: 4px;
+        color: #FFFFFF;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 20px;
+        line-height: 24px;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease-in-out;
+      }
+      input[type="submit"]:hover {
+        background-color: #fbbf24;
+      }
+      .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .form-container form {
+        display: none;
+      }
+      .form-container form.active {
+        display: block;
+      }
+      .form-toggle {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #333333;
+        cursor: pointer;
+      }
+      .form-toggle:hover {
+        color: #fbbf24;
+      }
+
+      .pos{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 20px;
+        margin-right: 20px;
+
+      }
+      .pos{
+		   position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 20px;
+        margin-right: 20px;
+	  }
+      .captcha {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #captcha-container {
+            display: inline-block;
+        }
+
+        #refresh-captcha {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+		    <!-- Check for the flash attribute and display the success message -->  
+     <div th:if="${err_msg}" class="pos">
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <p th:text="${err_msg}"></p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
+             </div> 
+        </div>
+	
+      <form id="login-form" class="active" action="/intro" method="post">
+        <input type="text" placeholder="Email" name="email" required><br>
+        <input type="password" placeholder="Password" name="password" required><br>
+         <div class="captcha">
+        <div id="captcha-container">
+            <!-- This is where the CAPTCHA text will be displayed -->
+        </div>
+        <span id="refresh-captcha" onclick="generateCaptcha()"><a href="#">Refresh</a></span>
+
+        <!-- Input box for the user to type the CAPTCHA -->
+        <br>
+        <br>
+        <input type="text" name="captcha" id="captcha-input" placeholder="Type the CAPTCHA" required>
+        <button onclick="checkCaptcha()">Submit</button>
+    </div><br>
+        <input type="submit" value="Login">
+        <p class="form-toggle" onclick="toggleForm()">Don't have an account? Register here.</p>
+      </form>
+      
+  	    <!-- Check for the flash attribute and display the success message -->  
+     <div th:if="${msg}" class="pos">
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <p th:text="${msg}"></p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
+             </div> 
+        </div>
+      
+  
+      <form id="register-form" action="#" method="post" th:action="@{/process}">
+            
+     
+            
+        <input type="text" placeholder="Username" name="name" required><br>
+        <input type="email" placeholder="Email" name="email" required><br>
+        <input type="password" placeholder="Password" name="password" required><br>
+        
+        <input type="submit" value="Register">
+        <p class="form-toggle" onclick="toggleForm()">Already have an account? Login here.</p>
+      </form>
+    </div>
+    <script>
+		function generateCaptcha() {
+            const captchaContainer = document.getElementById('captcha-container');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let captchaText = '';
+
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                captchaText += characters.charAt(randomIndex);
+            }
+
+            captchaContainer.textContent = captchaText;
+        }
+
+        function checkCaptcha() {
+            const captchaInput = document.getElementById('captcha-input');
+            const captchaContainer = document.getElementById('captcha-container');
+
+            if (captchaInput.value === captchaContainer.textContent) {
+                alert('CAPTCHA is correct!'); // You can replace this with your desired action.
+            } else {
+                alert('CAPTCHA is incorrect. Please try again.');
+                generateCaptcha(); // Regenerate CAPTCHA on incorrect entry.
+                captchaInput.value = ''; // Clear the input field.
+            }
+        }
+
+        // Initial CAPTCHA generation
+        generateCaptcha();
+      function toggleForm() {
+        const loginForm = document.getElementById("login-form");
+        const registerForm = document.getElementById("register-form");
+        loginForm.classList.toggle("active");
+        registerForm.classList.toggle("active");
+      }
+    </script>
+  </body>
+    
+</html>
